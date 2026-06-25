@@ -4,7 +4,8 @@ import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { timeStamp } from 'console';
+import router from './routes/product.routes';
+import { success } from 'zod';
 
 dotenv.config();
 
@@ -37,6 +38,15 @@ app.get('/api/v1/health', (req, res) => {
         });
     }
 });
+
+app.use('/api/v1/products', router);
+
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: 'Recurso no encontrado en AgenticCart API'
+    })
+})
 
 app.listen(PORT,() => {
     console.log(`🚀 API Agéntica corriendo en: http://localhost:${PORT}`);

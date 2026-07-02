@@ -4,8 +4,8 @@ import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import router from './routes/product.routes';
-import { success } from 'zod';
+import productRoutes from './routes/product.routes';
+import aiRoutes from './routes/ai.routes';
 
 dotenv.config();
 
@@ -39,7 +39,8 @@ app.get('/api/v1/health', (req, res) => {
     }
 });
 
-app.use('/api/v1/products', router);
+app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/ai', aiRoutes)
 
 app.use((req, res) => {
     res.status(404).json({

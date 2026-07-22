@@ -40,6 +40,7 @@ app.get('/api/v1/health', (req, res) => {
     }
 });
 
+// Endpoints
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/ai', aiRoutes)
 

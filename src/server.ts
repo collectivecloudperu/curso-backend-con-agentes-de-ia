@@ -6,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import productRoutes from './routes/product.routes';
 import aiRoutes from './routes/ai.routes';
+import { connectDB } from './config/database';
 
 dotenv.config();
 
@@ -49,6 +50,16 @@ app.use((req, res) => {
     })
 })
 
-app.listen(PORT,() => {
-    console.log(`🚀 API Agéntica corriendo en: http://localhost:${PORT}`);
-})
+const startServer = async () => {
+    try {
+        await connectDB();
+
+        app.listen(PORT,() => {
+            console.log(`🚀 API Agéntica corriendo en: http://localhost:${PORT}`);
+        });
+    } catch (error) {
+        console.error('❌ Error al iniciar el servidor', error);
+    }
+}
+
+startServer();
